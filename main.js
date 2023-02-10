@@ -23,12 +23,12 @@ function ammo() {
     this.y = spaceshipY;
 
     ammoList.push(this);
-    if (this.y == 0) {
-      ammoList.shift(this);
-    }
   };
   this.update = function () {
     this.y -= 7;
+    if (this.y < 0) {
+      ammoList.shift(this); //if it dosen't this the data keep stacking
+    }
   };
 }
 function loadImg() {
