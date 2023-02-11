@@ -33,7 +33,7 @@ function ammo() {
 }
 
 function generateRandomValue(min, max) {
-  let randomNum = Math.floor(Mate.random() * (max - min + 1)) + min;
+  let randomNum = Math.floor(Math.random() * (max - min + 1)) + min;
   return randomNum;
 }
 
@@ -46,6 +46,9 @@ function Enemy() {
     this.y = 0;
     this.x = generateRandomValue(0, canvas.width - 50);
     enemyList.push(this);
+  };
+  this.update = function () {
+    this.y += 1;
   };
 }
 
@@ -119,6 +122,9 @@ function update() {
 
   for (let i = 0; i < ammoList.length; i++) {
     ammoList[i].update();
+  }
+  for (let i = 0; i < enemyList.length; i++) {
+    enemyList[i].update();
   }
 }
 
