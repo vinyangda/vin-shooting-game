@@ -11,9 +11,12 @@ canvas.height = 500;
 document.body.appendChild(canvas);
 
 let backgroundImg, spaceshipImg, enemyImg, ammoImg, gameOverImg;
+let gameOver = false;
+
 let spaceshipX = canvas.width / 2 - 32;
 let spaceshipY = canvas.height - 64;
 
+let score = 0;
 let ammoList = [];
 function ammo() {
   this.x = 0;
@@ -21,13 +24,26 @@ function ammo() {
   this.init = function () {
     this.x = spaceshipX + 18;
     this.y = spaceshipY;
-
+    this.alive = true;
     ammoList.push(this);
   };
   this.update = function () {
     this.y -= 7;
     if (this.y < 0) {
       ammoList.shift(this); //if it dosen't this the data keep stacking
+    }
+  };
+  this.checkHit = function () {
+    for (let i = 0; i < enemyList.length; i++) {
+      if (
+        this.y <= enemyList[i].y &&
+        this.x < enemyList[i].x + 40 &&
+        this.x > enemyList[i].x
+      ) {
+        score++;
+        this.alive = false;
+        enemyList.splice(i, 1);
+      }
     }
   };
 }
@@ -49,6 +65,11 @@ function Enemy() {
   };
   this.update = function () {
     this.y += 1;
+
+    if (this.y >= canvas.height - 48) {
+      gameOver = true;
+      console.log("Game Over");
+    }
   };
 }
 
@@ -121,7 +142,10 @@ function update() {
   }
 
   for (let i = 0; i < ammoList.length; i++) {
-    ammoList[i].update();
+    if (ammoList[i].alive) {
+      ammoList[i].update();
+      ammoList[i].checkHit();
+    }
   }
   for (let i = 0; i < enemyList.length; i++) {
     enemyList[i].update();
@@ -133,7 +157,9 @@ function render() {
   ctx.drawImage(spaceshipImg, spaceshipX, spaceshipY);
 
   for (let i = 0; i < ammoList.length; i++) {
-    ctx.drawImage(ammoImg, ammoList[i].x, ammoList[i].y);
+    if (ammoList[i].alive) {
+      ctx.drawImage(ammoImg, ammoList[i].x, ammoList[i].y);
+    }
   }
   for (let i = 0; i < enemyList.length; i++) {
     ctx.drawImage(enemyImg, enemyList[i].x, enemyList[i].y);
@@ -142,10 +168,14 @@ function render() {
 
 function main() {
   // 재귀함수로 메인을 계속 렌더링 해준다. >> 프레임 효과를 나타냄
-  update();
-  render();
-  console.log("animation");
-  requestAnimationFrame(main);
+  if (!gameOver) {
+    update();
+    render();
+    console.log("animation");
+    requestAnimationFrame(main);
+  } else {
+    ctx.drawImage(gameOverImg, 10, 100, 380, 380);
+  }
 }
 
 loadImg();
