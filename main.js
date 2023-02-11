@@ -155,7 +155,8 @@ function update() {
 function render() {
   ctx.drawImage(backgroundImg, 0, 0, canvas.width, canvas.height);
   ctx.drawImage(spaceshipImg, spaceshipX, spaceshipY);
-
+  ctx.fillText(`Score: ${score}`, 20, 20);
+  ctx.fillStyle = "white";
   for (let i = 0; i < ammoList.length; i++) {
     if (ammoList[i].alive) {
       ctx.drawImage(ammoImg, ammoList[i].x, ammoList[i].y);
