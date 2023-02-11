@@ -29,9 +29,9 @@ function ammo() {
   };
   this.update = function () {
     this.y -= 7;
-    if (this.y < 0) {
-      ammoList.shift(this); //if it dosen't this the data keep stacking
-    }
+    // if (this.y < 0) {
+    //   ammoList.shift(this); //if it dosen't this the data keep stacking
+    // }
   };
   this.checkHit = function () {
     for (let i = 0; i < enemyList.length; i++) {
@@ -75,7 +75,7 @@ function Enemy() {
 
 function loadImg() {
   backgroundImg = new Image();
-  backgroundImg.src = "images/background-image.jpg";
+  backgroundImg.src = "images/background-image.png";
 
   spaceshipImg = new Image();
   spaceshipImg.src = "images/jet.png";
