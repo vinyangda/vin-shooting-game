@@ -31,6 +31,24 @@ function ammo() {
     }
   };
 }
+
+function generateRandomValue(min, max) {
+  let randomNum = Math.floor(Mate.random() * (max - min + 1)) + min;
+  return randomNum;
+}
+
+let enemyList = [];
+
+function Enemy() {
+  this.x = 0;
+  this.y = 0;
+  this.init = function () {
+    this.y = 0;
+    this.x = generateRandomValue(0, canvas.width - 50);
+    enemyList.push(this);
+  };
+}
+
 function loadImg() {
   backgroundImg = new Image();
   backgroundImg.src = "images/background-image.jpg";
@@ -64,6 +82,13 @@ function createAmmo() {
   let b = new ammo();
   b.init();
   console.log("list", ammoList);
+}
+
+function createEnemy() {
+  const interval = setInterval(function () {
+    let e = new Enemy();
+    e.init();
+  }, 1000);
 }
 
 function update() {
@@ -104,6 +129,9 @@ function render() {
   for (let i = 0; i < ammoList.length; i++) {
     ctx.drawImage(ammoImg, ammoList[i].x, ammoList[i].y);
   }
+  for (let i = 0; i < enemyList.length; i++) {
+    ctx.drawImage(enemyImg, enemyList[i].x, enemyList[i].y);
+  }
 }
 
 function main() {
@@ -116,6 +144,7 @@ function main() {
 
 loadImg();
 setupKeyboardListener();
+createEnemy();
 main();
 
 // shooting a ammo if you press space bar
