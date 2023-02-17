@@ -13,8 +13,8 @@ document.body.appendChild(canvas);
 let backgroundImg, spaceshipImg, enemyImg, ammoImg, gameOverImg;
 let gameOver = false;
 
-let spaceshipX = canvas.width / 2 - 32;
-let spaceshipY = canvas.height - 64;
+let spaceshipX = canvas.width / 2 - 25;
+let spaceshipY = canvas.height - 50;
 
 let score = 0;
 let ammoList = [];
@@ -22,7 +22,7 @@ function ammo() {
   this.x = 0;
   this.y = 0;
   this.init = function () {
-    this.x = spaceshipX + 18;
+    this.x = spaceshipX;
     this.y = spaceshipY;
     this.alive = true;
     ammoList.push(this);
@@ -37,8 +37,8 @@ function ammo() {
     for (let i = 0; i < enemyList.length; i++) {
       if (
         this.y <= enemyList[i].y &&
-        this.x < enemyList[i].x + 40 &&
-        this.x > enemyList[i].x
+        this.x < enemyList[i].x + 25 &&
+        this.x > enemyList[i].x - 25
       ) {
         score++;
         this.alive = false;
