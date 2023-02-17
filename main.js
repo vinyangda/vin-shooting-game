@@ -66,7 +66,7 @@ function Enemy() {
   this.update = function () {
     this.y += 1;
 
-    if (this.y >= canvas.height - 48) {
+    if (this.y >= canvas.height - 50) {
       gameOver = true;
       console.log("Game Over");
     }
