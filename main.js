@@ -70,6 +70,9 @@ function Enemy() {
       gameOver = true;
       console.log("Game Over");
     }
+    // if ((gameOver = true && 32 in keysDown)) {
+    //   gameOver = false;
+    // }
   };
 }
 
@@ -84,7 +87,7 @@ function loadImg() {
   enemyImg.src = "images/enemy.png";
 
   ammoImg = new Image();
-  ammoImg.src = "images/ammo.png";
+  ammoImg.src = "images/ammo.gif";
 }
 
 let keysDown = {}; //press button
@@ -98,6 +101,7 @@ function setupKeyboardListener() {
 
     if (event.keyCode == 32) {
       createAmmo(); //create ammo
+      // console.log(event.keyCode);
     }
   });
 }
@@ -140,6 +144,7 @@ function update() {
   if (spaceshipY >= canvas.height - 60) {
     spaceshipY = canvas.height - 60;
   }
+  // console.log(event.keyCode)
 
   for (let i = 0; i < ammoList.length; i++) {
     if (ammoList[i].alive) {
